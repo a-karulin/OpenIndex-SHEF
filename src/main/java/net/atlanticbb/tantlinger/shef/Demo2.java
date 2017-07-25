@@ -117,14 +117,19 @@ public class Demo2 {
 
 
         final JButton third = new JButton("Задание №3");
-        final JLabel labelVisualEditor = new JLabel("Введите имя визуального редактора");
-        labelVisualEditor.setVisible(false);
+        final JLabel labelEditorName= new JLabel("Введите имя визуального редактора");
+        labelEditorName.setVisible(false);
         final JTextField appointNameVisualEditor = new JTextField();
         appointNameVisualEditor.setMaximumSize(new Dimension(15000, 500));
         appointNameVisualEditor.setVisible(false);
         final JButton acceptVisualEditorName = new JButton("Ok");
         acceptVisualEditorName.setVisible(false);
         final JButton fourth = new JButton("Задание №4");
+        final JTextField appointNameSourceEditor = new JTextField();
+        appointNameSourceEditor.setMaximumSize(new Dimension(15000, 500));
+        appointNameSourceEditor.setVisible(false);
+        final JButton acceptSourceEditorName = new JButton("Ok");
+        acceptSourceEditorName.setVisible(false);
         final JButton fifth = new JButton("Задание №5");
         final JLabel labelDefaultFont = new JLabel("Выделите текст и нажмите Изменить");
         final JButton changeOnDefaultFont = new JButton("Изменить");
@@ -235,9 +240,11 @@ public class Demo2 {
                     sixth.setVisible(true);
                     wysEditorButton.setVisible(false);
                     sourceEditorButton.setVisible(false);
-                    labelVisualEditor.setVisible(false);
+                    labelEditorName.setVisible(false);
                     appointNameVisualEditor.setVisible(false);
+                    appointNameSourceEditor.setVisible(false);
                     acceptVisualEditorName.setVisible(false);
+                    acceptSourceEditorName.setVisible(false);
                     labelDefaultFont.setVisible(false);
                     changeOnDefaultFont.setVisible(false);
                     labelInsertText.setVisible(false);
@@ -293,23 +300,25 @@ public class Demo2 {
                 fourth.setVisible(false);
                 fifth.setVisible(false);
                 sixth.setVisible(false);
-                labelVisualEditor.setText("Введите имя визуального редактора");
-                labelVisualEditor.setVisible(true);
+                labelEditorName.setText("Введите имя визуального редактора");
+                labelEditorName.setVisible(true);
                 appointNameVisualEditor.setVisible(true);
                 acceptVisualEditorName.setVisible(true);
-                ActionListener actionListenerRenameVisualEditor = new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(e.getSource()==acceptVisualEditorName){
-                            editor.setEditorTitle(editor.getVisualEditor(), appointNameVisualEditor.getText());
-                            appointNameVisualEditor.setText("");
-                        }
-                    }
-                };
-                acceptVisualEditorName.addActionListener(actionListenerRenameVisualEditor);
+
             }
         };
         third.addActionListener(actionListenerThirdTask);
+
+        ActionListener actionListenerRenameVisualEditor = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==acceptVisualEditorName){
+                    editor.setEditorTitle(editor.getVisualEditor(), appointNameVisualEditor.getText());
+                    appointNameVisualEditor.setText("");
+                }
+            }
+        };
+        acceptVisualEditorName.addActionListener(actionListenerRenameVisualEditor);
 
         ActionListener actionListenerFourthTask = new ActionListener() {
             @Override
@@ -321,23 +330,24 @@ public class Demo2 {
                 fourth.setVisible(false);
                 fifth.setVisible(false);
                 sixth.setVisible(false);
-                labelVisualEditor.setText("Введите имя html редактора");
-                labelVisualEditor.setVisible(true);
-                appointNameVisualEditor.setVisible(true);
-                acceptVisualEditorName.setVisible(true);
-                ActionListener actionListenerRenameVisualEditor = new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println(appointNameVisualEditor.getText());
-                        if(e.getSource()==acceptVisualEditorName){
-                            editor.setEditorTitle(editor.getSourceEditor(), appointNameVisualEditor.getText());
-                            appointNameVisualEditor.setText("");
-                        }
-                    }
-                };
-                acceptVisualEditorName.addActionListener(actionListenerRenameVisualEditor);
+                labelEditorName.setText("Введите имя html редактора");
+                labelEditorName.setVisible(true);
+                appointNameSourceEditor.setVisible(true);
+                acceptSourceEditorName.setVisible(true);
+
             }
         };
+
+        ActionListener actionListenerRenameSourseEditor = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(e.getSource()==acceptSourceEditorName){
+                    editor.setEditorTitle(editor.getSourceEditor(), appointNameSourceEditor.getText());
+                    appointNameSourceEditor.setText("");
+                }
+            }
+        };
+        acceptSourceEditorName.addActionListener(actionListenerRenameSourseEditor);
         fourth.addActionListener(actionListenerFourthTask);
 
         ActionListener actionListenerFifthTask = new ActionListener() {
@@ -414,9 +424,11 @@ public class Demo2 {
         panel.add(table);
         panel.add(wysEditorButton);
         panel.add(sourceEditorButton);
-        panel.add(labelVisualEditor);
+        panel.add(labelEditorName);
         panel.add(appointNameVisualEditor);
+        panel.add(appointNameSourceEditor);
         panel.add(acceptVisualEditorName);
+        panel.add(acceptSourceEditorName);
         panel.add(labelDefaultFont);
         panel.add(changeOnDefaultFont);
         panel.add(labelInsertText);
