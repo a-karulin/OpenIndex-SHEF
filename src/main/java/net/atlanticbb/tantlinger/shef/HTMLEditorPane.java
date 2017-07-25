@@ -301,6 +301,39 @@ public class HTMLEditorPane extends JPanel
     return (pos>-1 && pos<editors.size())? editors.get( pos ): null;
   }
 
+  public AbstractSourceEditor getSourceEditor(){
+    return (AbstractSourceEditor)editors.get(1);
+  }
+
+  public AbstractWysiwygEditor getVisualEditor(){
+
+    return (AbstractWysiwygEditor)editors.get(0);
+  }
+
+  public void setEditorVisible(Object editor){
+    if(editor instanceof AbstractSourceEditor){
+      tabs.setSelectedIndex(1);
+    }else if(editor instanceof AbstractWysiwygEditor){
+      tabs.setSelectedIndex(0);
+    }
+  }
+
+  public void setEditorTitle(Object editor,  String newName){
+    if(editor instanceof AbstractSourceEditor){
+      tabs.setTitleAt(1, newName);
+    }else if(editor instanceof AbstractWysiwygEditor){
+      tabs.setTitleAt(0, newName);
+    }
+  }
+
+  public void setDefaultFont(){
+    wysEditor.setFontFamily("Default");
+  }
+
+  public void insertVisualText(String sText){
+    wysEditor.insertHTML(sText);
+  }
+
   public String getSourceText()
   {
     String txt = removeInvalidTags( srcEditor.getText() );
@@ -647,7 +680,7 @@ public class HTMLEditorPane extends JPanel
     }
   }
 
-  private class ChangeTabAction extends DefaultAction
+   private class ChangeTabAction extends DefaultAction
   {
     int tab;
     public ChangeTabAction( int tab )

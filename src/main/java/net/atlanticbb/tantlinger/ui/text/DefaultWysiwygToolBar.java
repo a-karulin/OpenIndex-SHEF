@@ -12,10 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import javax.swing.Action;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -25,6 +22,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.html.HTMLDocument;
+
+
 import net.atlanticbb.tantlinger.ui.DefaultAction;
 import net.atlanticbb.tantlinger.ui.UIUtils;
 import net.atlanticbb.tantlinger.ui.text.actions.HTMLEditorActionFactory;
@@ -106,6 +105,7 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
     paragraphCombo.addActionListener( paragraphComboHandler );
     paragraphCombo.setRenderer( new ParagraphComboRenderer() );
     add( paragraphCombo );
+    addButtonToMap("paragraphCombo", paragraphCombo);
     addSeparator();
 
     List<String> fonts = new ArrayList<String>();
@@ -122,9 +122,11 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
     fontFamilyCombo.setMaximumSize( new Dimension( 150, 22 ) );
     //fontFamilyCombo.setFont( comboFont );
     fontFamilyCombo.addActionListener( fontChangeHandler );
+    addButtonToMap("fontFamilyCombo",fontFamilyCombo);
     add( fontFamilyCombo );
 
     final JButton fontSizeButton = new JButton( UIUtils.getIcon( UIUtils.X16, "fontsize.png" ) );
+    addButtonToMap("fontSizeButton", fontSizeButton);
     final JPopupMenu sizePopup = ActionUIFactory.getInstance().createPopupMenu( fontSizeActions );
     ActionListener al = new ActionListener()
     {

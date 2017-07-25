@@ -38,12 +38,12 @@ public class TabAction extends DecoratedTextAction
         //delegate = defaultTabAction;
         this.type = type;
     }    
-    
+
     public void actionPerformed(ActionEvent e)
     {
         JEditorPane editor;
         HTMLDocument document; 
-        
+
         editor = (JEditorPane)getTextComponent(e);
         document = (HTMLDocument)editor.getDocument();
         Element elem = document.getParagraphElement(editor.getCaretPosition());
@@ -63,7 +63,7 @@ public class TabAction extends DecoratedTextAction
             }
         }
         else     
-            delegate.actionPerformed(e);            
+            delegate.actionPerformed(e);
     }
 
 }

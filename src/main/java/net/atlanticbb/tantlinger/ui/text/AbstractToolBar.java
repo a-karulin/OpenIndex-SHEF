@@ -7,9 +7,11 @@ package net.atlanticbb.tantlinger.ui.text;
 
 import java.awt.Dimension;
 import java.awt.Insets;
-import javax.swing.AbstractButton;
-import javax.swing.Action;
-import javax.swing.JToolBar;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.swing.*;
+
 import org.bushe.swing.action.ActionUIFactory;
 
 /**
@@ -19,6 +21,9 @@ import org.bushe.swing.action.ActionUIFactory;
  */
 public abstract class AbstractToolBar extends JToolBar
 {
+  public static HashMap<String, JComponent> hashMap = new HashMap<String, JComponent>();
+  private static int counter = 0;
+
   protected AbstractToolBar()
   {
     super();
@@ -30,6 +35,12 @@ public abstract class AbstractToolBar extends JToolBar
     AbstractButton button = ActionUIFactory.getInstance().createButton( act );
     configToolbarButton( button );
     add( button );
+    addButtonToMap(counter+"", button);
+    counter++;
+  }
+
+  public static void addButtonToMap(String description, JComponent ab){
+    hashMap.put(description, ab);
   }
 
   private void build()
@@ -54,5 +65,9 @@ public abstract class AbstractToolBar extends JToolBar
     {
       button.setToolTipText( a.getValue( Action.NAME ).toString() );
     }
+  }
+  public static void setButtonVisible(String description, boolean isVisibleButton){
+    JComponent ab = hashMap.get(description);
+    ab.setVisible(isVisibleButton);
   }
 }
