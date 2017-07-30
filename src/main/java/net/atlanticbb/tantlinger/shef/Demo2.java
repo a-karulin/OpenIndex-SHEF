@@ -107,13 +107,25 @@ public class Demo2 {
 
         final JButton second = new JButton("Задание №2");
 
-        final JRadioButton wysEditorButton = new JRadioButton("Визуальный редактор");
-        wysEditorButton.setVisible(false);
-        final JRadioButton sourceEditorButton = new JRadioButton("Html редактор");
-        sourceEditorButton.setVisible(false);
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(wysEditorButton);
-        buttonGroup.add(sourceEditorButton);
+        final JLabel labelWysEditor = new JLabel("Визуальный редактор");
+        labelWysEditor.setVisible(false);
+        final JLabel labelSourceEditor = new JLabel("Html редактор");
+        labelSourceEditor.setVisible(false);
+        final JRadioButton wysEditorShow = new JRadioButton("Показать");
+        wysEditorShow.setVisible(false);
+        final JRadioButton wysEditorHide = new JRadioButton("Скрыть");
+        wysEditorHide.setVisible(false);
+        ButtonGroup buttonGroup1 = new ButtonGroup();
+        buttonGroup1.add(wysEditorShow);
+        buttonGroup1.add(wysEditorHide);
+
+        final JRadioButton sourceEditorShow = new JRadioButton("Показать");
+        sourceEditorShow.setVisible(false);
+        final JRadioButton sourceEditorHide = new JRadioButton("Скрыть");
+        sourceEditorHide.setVisible(false);
+        ButtonGroup buttonGroup2 = new ButtonGroup();
+        buttonGroup2.add(sourceEditorShow);
+        buttonGroup2.add(sourceEditorHide);
 
 
         final JButton third = new JButton("Задание №3");
@@ -173,8 +185,10 @@ public class Demo2 {
                     fourth.setVisible(false);
                     fifth.setVisible(false);
                     sixth.setVisible(false);
-                    wysEditorButton.setVisible(false);
-                    sourceEditorButton.setVisible(false);
+                    wysEditorShow.setVisible(false);
+                    wysEditorHide.setVisible(false);
+                    sourceEditorShow.setVisible(false);
+                    sourceEditorHide.setVisible(false);
                     acceptVisualEditorName.setVisible(false);
                 }
             }
@@ -238,8 +252,12 @@ public class Demo2 {
                     fourth.setVisible(true);
                     fifth.setVisible(true);
                     sixth.setVisible(true);
-                    wysEditorButton.setVisible(false);
-                    sourceEditorButton.setVisible(false);
+                    labelWysEditor.setVisible(false);
+                    labelSourceEditor.setVisible(false);
+                    wysEditorShow.setVisible(false);
+                    wysEditorHide.setVisible(false);
+                    sourceEditorShow.setVisible(false);
+                    sourceEditorHide.setVisible(false);
                     labelEditorName.setVisible(false);
                     appointNameVisualEditor.setVisible(false);
                     appointNameSourceEditor.setVisible(false);
@@ -266,29 +284,47 @@ public class Demo2 {
                 fourth.setVisible(false);
                 fifth.setVisible(false);
                 sixth.setVisible(false);
-                wysEditorButton.setVisible(true);
-                sourceEditorButton.setVisible(true);
-                if (editor.isSourceEditorSelected()) {
-                    sourceEditorButton.setSelected(true);
-                }else{
-                    wysEditorButton.setSelected(true);
-                }
+                labelWysEditor.setVisible(true);
+                labelSourceEditor.setVisible(true);
+                wysEditorShow.setVisible(true);
+                wysEditorHide.setVisible(true);
+                sourceEditorShow.setVisible(true);
+                sourceEditorHide.setVisible(true);
+
+                sourceEditorShow.setSelected(true);
+
+                wysEditorShow.setSelected(true);
+
+                ActionListener actionListenerSourceEditorTab = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource()==sourceEditorShow){
+                            editor.setEditorVisible(editor.getSourceEditor(), true);
+                        }else if(e.getSource()==sourceEditorHide){
+                            editor.setEditorVisible(editor.getSourceEditor(), false);
+                        }
+                    }
+                };
+                sourceEditorShow.addActionListener(actionListenerSourceEditorTab);
+                sourceEditorHide.addActionListener(actionListenerSourceEditorTab);
+
+                ActionListener actionListenerWysEditorTab = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(e.getSource()==wysEditorShow){
+                            editor.setEditorVisible(editor.getVisualEditor(), true);
+                        }else if(e.getSource()==wysEditorHide){
+                            editor.setEditorVisible(editor.getVisualEditor(), false);
+                        }
+                    }
+                };
+                wysEditorShow.addActionListener(actionListenerWysEditorTab);
+                wysEditorHide.addActionListener(actionListenerWysEditorTab);
             }
         };
         second.addActionListener(actionListenerSecondTask);
 
-        ActionListener actionListenerChooseEditorTab = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource()==wysEditorButton){
-                    editor.setSelectedEditor(editor.getVisualEditor());
-                }else if (e.getSource()==sourceEditorButton){
-                    editor.setSelectedEditor(editor.getSourceEditor());
-                }
-            }
-        };
-        sourceEditorButton.addActionListener(actionListenerChooseEditorTab);
-        wysEditorButton.addActionListener(actionListenerChooseEditorTab);
+
 
         ActionListener actionListenerThirdTask = new ActionListener() {
             @Override
@@ -365,7 +401,7 @@ public class Demo2 {
                 ActionListener actionListenerOnChangeFont = new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        editor.setDefaultFont();
+                        editor.setDefaultFont("Acadian");
                     }
                 };
                 changeOnDefaultFont.addActionListener(actionListenerOnChangeFont);
@@ -422,8 +458,13 @@ public class Demo2 {
         panel.add(hyperlink);
         panel.add(image);
         panel.add(table);
-        panel.add(wysEditorButton);
-        panel.add(sourceEditorButton);
+        panel.add(labelWysEditor);
+        panel.add(wysEditorShow);
+        panel.add(wysEditorHide);
+        panel.add(labelSourceEditor);
+        panel.add(sourceEditorShow);
+        panel.add(sourceEditorHide);
+
         panel.add(labelEditorName);
         panel.add(appointNameVisualEditor);
         panel.add(appointNameSourceEditor);

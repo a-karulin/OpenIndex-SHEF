@@ -49,6 +49,9 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
   private ActionList actionList;
   private ActionListener fontChangeHandler = new FontChangeHandler();
   private ActionListener paragraphComboHandler = new ParagraphComboHandler();
+  List<String> fonts;
+
+
 
   public DefaultWysiwygToolBar( AbstractWysiwygEditor wysiwygEditor )
   {
@@ -56,6 +59,14 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
     this.wysiwygEditor = wysiwygEditor;
     this.wysiwygEditor.addCaretListener( new CaretHandler() );
     build();
+  }
+
+  public AbstractWysiwygEditor getWysiwygEditor() {
+    return wysiwygEditor;
+  }
+
+  public ActionListener getFontChangeHandler() {
+    return fontChangeHandler;
   }
 
   private void build()
@@ -108,7 +119,7 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
     addButtonToMap("paragraphCombo", paragraphCombo);
     addSeparator();
 
-    List<String> fonts = new ArrayList<String>();
+    fonts = new ArrayList<String>();
     fonts.add( "Default" );
     fonts.add( "serif" );
     fonts.add( "sans-serif" );
@@ -264,6 +275,10 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
     }
   }
 
+  public JComboBox getFontFamilyCombo() {
+    return fontFamilyCombo;
+  }
+
   private class ParagraphComboHandler implements ActionListener
   {
     public void actionPerformed( ActionEvent e )
@@ -286,6 +301,13 @@ public class DefaultWysiwygToolBar extends AbstractToolBar
         value = ((Action) value).getValue( Action.NAME );
       }
       return super.getListCellRendererComponent( list, value, index, isSelected, cellHasFocus );
+    }
+  }
+
+  public class FontChangeDefault implements ActionListener{
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
   }
 

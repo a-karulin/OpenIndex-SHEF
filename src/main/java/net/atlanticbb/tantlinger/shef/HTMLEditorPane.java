@@ -1,48 +1,21 @@
 package net.atlanticbb.tantlinger.shef;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Action;
-import javax.swing.JMenu;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
+import javax.swing.text.Element;
 import javax.swing.undo.UndoManager;
 import net.atlanticbb.tantlinger.i18n.I18n;
 import net.atlanticbb.tantlinger.ui.DefaultAction;
-import net.atlanticbb.tantlinger.ui.text.AbstractEditor;
-import net.atlanticbb.tantlinger.ui.text.AbstractSourceEditor;
-import net.atlanticbb.tantlinger.ui.text.AbstractToolBar;
-import net.atlanticbb.tantlinger.ui.text.AbstractWysiwygEditor;
-import net.atlanticbb.tantlinger.ui.text.CompoundUndoManager;
-import net.atlanticbb.tantlinger.ui.text.DefaultSourceEditor;
-import net.atlanticbb.tantlinger.ui.text.DefaultWysiwygEditor;
-import net.atlanticbb.tantlinger.ui.text.Entities;
-import net.atlanticbb.tantlinger.ui.text.actions.ClearStylesAction;
-import net.atlanticbb.tantlinger.ui.text.actions.FindReplaceAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLEditorActionFactory;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLElementPropertiesAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLFontAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLFontColorAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLHorizontalRuleAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLImageAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLLineBreakAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLLinkAction;
-import net.atlanticbb.tantlinger.ui.text.actions.HTMLTableAction;
-import net.atlanticbb.tantlinger.ui.text.actions.SpecialCharAction;
+import net.atlanticbb.tantlinger.ui.text.*;
+import net.atlanticbb.tantlinger.ui.text.actions.*;
 import org.bushe.swing.action.ActionList;
 import org.bushe.swing.action.ActionManager;
 import org.bushe.swing.action.ActionUIFactory;
@@ -310,11 +283,29 @@ public class HTMLEditorPane extends JPanel
     return (AbstractWysiwygEditor)editors.get(0);
   }
 
-  public void setEditorVisible(Object editor){
+  public void setEditorVisible(Object editor, boolean isVisible){
     if(editor instanceof AbstractSourceEditor){
-      tabs.setSelectedIndex(1);
+      //tabs.setSelectedIndex(1);
+      if(isVisible){
+        tabs.add("HTML-Quelltext", ((AbstractSourceEditor) editor).getComponent());
+      }else{
+        tabs.remove(((AbstractSourceEditor) editor).getComponent());
+      }
+
+
     }else if(editor instanceof AbstractWysiwygEditor){
-      tabs.setSelectedIndex(0);
+      //tabs.setSelectedIndex(0);
+      if(isVisible){
+
+        tabs.add(((AbstractWysiwygEditor) editor).getComponent(), 0);
+        setEditorTitle(editor, "HTML-Ansiht");
+        toolBarPanel.setVisible(true);
+      }else{
+        tabs.remove(((AbstractWysiwygEditor) editor).getComponent());
+        toolBarPanel.setVisible(false);
+      }
+
+
     }
   }
 
@@ -326,9 +317,9 @@ public class HTMLEditorPane extends JPanel
     }
   }
 
-  public void setDefaultFont(){
-    wysEditor.setFontFamily("Default");
-  }
+  public void setDefaultFont(String fontName){
+
+      }
 
   public void insertVisualText(String sText){
     wysEditor.insertHTML(sText);
